@@ -70,6 +70,10 @@
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.slim.min.js" />
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.slim.min.map" />
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
+      <_ContentIncludedByDefault Remove="wwwroot\dist\assets\Doran-Regular.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\dist\assets\KalamehWeb(FaNum)-Bold.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\dist\assets\KalamehWeb(FaNum)-Medium.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\dist\assets\KalamehWeb(FaNum)-Regular.woff" />
     </ItemGroup>
 
     <ItemGroup>
