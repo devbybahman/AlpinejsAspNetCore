@@ -1,0 +1,141 @@
+﻿@page
+@model Admin.Areas.Admin.Pages.IndexModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "داشبورد";
+}
+
+<!-- بخش خوش‌آمدگویی -->
+<div class="mb-8 flex flex-col md:flex-row justify-between items-end md:items-center">
+    <div>
+        <h2 class="text-3xl font-bold text-gray-800">
+            @Model.GetGreeting()، ادمین عزیز 👋
+        </h2>
+        <p class="text-gray-500 mt-2 text-sm">به پنل مدیریت یکپارچه فرش محتشم خوش آمدید.</p>
+    </div>
+    <div class="mt-4 md:mt-0 text-left">
+        <span class="text-sm font-medium text-gray-500 bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm">
+            📅 امروز: @DateTime.Now.ToString("yyyy/MM/dd", new System.Globalization.CultureInfo("fa-IR"))
+        </span>
+    </div>
+</div>
+
+<!-- کارت‌های آمار (KPI Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    
+    <!-- کارت ۱: فروش امروز -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+        <div>
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">فروش امروز</p>
+            <p class="text-2xl font-bold text-gray-800 mt-1">@Model.TotalSalesToday.ToString("N0") <span class="text-sm text-gray-400 font-normal">تومان</span></p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+    </div>
+
+    <!-- کارت ۲: سفارشات جدید -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+        <div>
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">سفارشات در صف</p>
+            <p class="text-2xl font-bold text-gray-800 mt-1">@Model.PendingOrdersCount</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+        </div>
+    </div>
+
+    <!-- کارت ۳: کاربران جدید -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+        <div>
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">کاربران جدید</p>
+            <p class="text-2xl font-bold text-gray-800 mt-1">+@Model.NewUsersCount</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+        </div>
+    </div>
+
+    <!-- کارت ۴: هشدار موجودی -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+        <div>
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">کمبود موجودی</p>
+            <p class="text-2xl font-bold text-gray-800 mt-1">@Model.LowStockProductsCount <span class="text-sm font-normal text-gray-400">کالا</span></p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+    </div>
+</div>
+
+<!-- بخش اصلی: جدول و دسترسی سریع -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    
+    <!-- جدول آخرین سفارشات (۲ ستون عرض) -->
+    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-50 flex justify-between items-center">
+            <h3 class="font-bold text-gray-800">آخرین سفارشات ثبت شده</h3>
+            <a href="/Admin/Sales/Orders/Queue" class="text-sm text-indigo-600 hover:text-indigo-800">مشاهده همه &larr;</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-100">
+                <thead>
+                    <tr class="bg-gray-50 text-right text-xs text-gray-500 uppercase">
+                        <th class="px-6 py-3 font-medium">شماره</th>
+                        <th class="px-6 py-3 font-medium">مشتری</th>
+                        <th class="px-6 py-3 font-medium">مبلغ</th>
+                        <th class="px-6 py-3 font-medium">وضعیت</th>
+                        <th class="px-6 py-3 font-medium">تاریخ</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    @foreach (var order in Model.RecentOrders)
+                    {
+                        var statusClass = order.StatusColor switch
+                        {
+                            "green" => "bg-emerald-100 text-emerald-700",
+                            "yellow" => "bg-amber-100 text-amber-700",
+                            "red" => "bg-rose-100 text-rose-700",
+                            _ => "bg-blue-100 text-blue-700"
+                        };
+
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-3 text-sm text-gray-500">#@order.Id</td>
+                            <td class="px-6 py-3 text-sm font-medium text-gray-800">@order.CustomerName</td>
+                            <td class="px-6 py-3 text-sm text-gray-600">@order.TotalPrice.ToString("N0")</td>
+                            <td class="px-6 py-3 text-sm">
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold @statusClass">
+                                    @order.Status
+                                </span>
+                            </td>
+                            <td class="px-6 py-3 text-sm text-gray-400">@order.Date</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- دسترسی سریع (۱ ستون عرض) -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <h3 class="font-bold text-gray-800 mb-4">دسترسی سریع</h3>
+        <div class="space-y-3">
+            <a href="/Admin/Store/Products/Create" class="block w-full p-3 text-right bg-gray-50 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg transition-all text-sm font-medium text-gray-600 flex items-center">
+                <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center ml-3 shadow-sm text-indigo-500">+</span>
+                افزودن محصول جدید
+            </a>
+            <a href="/Admin/Sales/Orders/Queue" class="block w-full p-3 text-right bg-gray-50 hover:bg-amber-50 hover:text-amber-700 rounded-lg transition-all text-sm font-medium text-gray-600 flex items-center">
+                <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center ml-3 shadow-sm text-amber-500">📦</span>
+                بررسی سفارشات جدید
+            </a>
+            <a href="/Admin/Users/List" class="block w-full p-3 text-right bg-gray-50 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-all text-sm font-medium text-gray-600 flex items-center">
+                <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center ml-3 shadow-sm text-blue-500">👥</span>
+                مدیریت کاربران
+            </a>
+            <a href="#" class="block w-full p-3 text-right bg-gray-50 hover:bg-rose-50 hover:text-rose-700 rounded-lg transition-all text-sm font-medium text-gray-600 flex items-center">
+                <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center ml-3 shadow-sm text-rose-500">🏷️</span>
+                تعریف کد تخفیف
+            </a>
+        </div>
+    </div>
+</div>

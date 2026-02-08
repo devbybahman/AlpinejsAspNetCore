@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AlpinejsAspNetCore.Pages;
+namespace Admin.Pages;
 
 public class PrivacyModel : PageModel
 {
@@ -16,4 +16,3 @@ public class PrivacyModel : PageModel
     {
     }
 }
-

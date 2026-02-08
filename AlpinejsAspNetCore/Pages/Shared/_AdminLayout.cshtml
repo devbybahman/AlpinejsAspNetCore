@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fa" dir="rtl" xmlns:x-transition="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <script>
+    if (localStorage.getItem('darkMode') === 'true' ||
+      (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>
+    
+  </title>
+  <link rel="stylesheet" href="~/dist/style.css" asp-append-version="true" />
+
+  @await RenderSectionAsync("css", required: false)
+</head>
+<body
+  x-data="{ page: 'اینجاااااااااااا', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
+  x-init="
+         darkMode = document.documentElement.classList.contains('dark');
+         $watch('darkMode', value => {
+            localStorage.setItem('darkMode', value);
+            if (value) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+         })
+  "
+  class="bg-gray-50 dark:bg-gray-900"
+>
+<!-- ===== Preloader Start ===== -->
+@await Html.PartialAsync("Partials/_Preloader")
+<!-- ===== Preloader End ===== -->
+
+<!-- ===== Page Wrapper Start ===== -->
+<div class="flex h-screen overflow-hidden">
+  <!-- ===== Sidebar Start ===== -->
+  @await Html.PartialAsync("Partials/_Sidebar")
+  <!-- ===== Sidebar End ===== -->
+
+  <!-- ===== Content Area Start ===== -->
+  <div class="relative flex flex-col flex-1 overflow-x-hidden custom-scrollbar overflow-y-auto">
+    <!-- Small Device Overlay Start -->
+    <include src="./partials/overlay.html" />
+    <!-- Small Device Overlay End -->
+
+    <!-- ===== Header Start ===== -->
+    @await Html.PartialAsync("Partials/_Header")
+    <!-- ===== Header End ===== -->
+
+    <!-- ===== Main Content Start ===== -->
+    <main>
+        @RenderBody()
+    </main>
+
+
+    <!-- ===== Main Content End ===== -->
+  </div>
+  <!-- ===== Content Area End ===== -->
+</div>
+<!-- ===== Page Wrapper End ===== -->
+<script src="~/dist/bundle.js" asp-append-version="true"></script>
+@await RenderSectionAsync("js", required: false)
+</body>
+</html>
