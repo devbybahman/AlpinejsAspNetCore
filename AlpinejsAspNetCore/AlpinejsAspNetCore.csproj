@@ -74,10 +74,12 @@
       <_ContentIncludedByDefault Remove="wwwroot\dist\assets\KalamehWeb(FaNum)-Bold.woff" />
       <_ContentIncludedByDefault Remove="wwwroot\dist\assets\KalamehWeb(FaNum)-Medium.woff" />
       <_ContentIncludedByDefault Remove="wwwroot\dist\assets\KalamehWeb(FaNum)-Regular.woff" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Assets\fonts\" />
+      <_ContentIncludedByDefault Remove="wwwroot\dist\bundle.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\dist\bundle.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\dist\style.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\dist\style.css.map" />
+      <_ContentIncludedByDefault Remove="Pages\Shared\Partials\overlay.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Shared\Partials\_Preloader.cshtml" />
     </ItemGroup>
 
 </Project>
